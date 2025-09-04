@@ -1,0 +1,84 @@
+-- Table: admin_details
+CREATE TABLE admin_details (
+  Admin_Id INT AUTO_INCREMENT PRIMARY KEY,
+  Email VARCHAR(100) UNIQUE NOT NULL,
+  Name VARCHAR(100) NOT NULL,
+  Password VARCHAR(255) NOT NULL,
+  Contact_No VARCHAR(15)
+);
+
+-- Table: users
+CREATE TABLE users (
+  user_id INT AUTO_INCREMENT PRIMARY KEY,
+  full_name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table: destinations
+CREATE TABLE destinations (
+  destination_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  description TEXT,
+  location VARCHAR(100),
+  category VARCHAR(50),
+  image_url TEXT
+);
+
+-- Table: packages
+CREATE TABLE packages (
+  package_id INT AUTO_INCREMENT PRIMARY KEY,
+  destination_id INT,
+  title VARCHAR(100) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  duration_days INT,
+  inclusions TEXT,
+  created_by INT,
+  FOREIGN KEY (destination_id) REFERENCES destinations(destination_id),
+  FOREIGN KEY (created_by) REFERENCES admin_details(Admin_Id)
+);
+
+-- Table: bookings
+CREATE TABLE bookings (
+  booking_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  package_id INT,
+  booking_date DATE DEFAULT CURRENT_DATE,
+  travel_date DATE,
+  num_people INT,
+  total_price DECIMAL(10, 2),
+  status ENUM('pending', 'confirmed', 'cancelled') DEFAULT 'pending',
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (package_id) REFERENCES packages(package_id)
+);
+
+-- Table: reviews
+CREATE TABLE reviews (
+  review_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  destination_id INT,
+  rating INT CHECK (rating BETWEEN 1 AND 5),
+  comment TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (destination_id) REFERENCES destinations(destination_id)
+);
+
+-- Table: q&a_lists
+CREATE TABLE q_and_a_lists (
+  Q_A_Id INT AUTO_INCREMENT PRIMARY KEY,
+  Questions_List TEXT,
+  Answers_List TEXT,
+  Searched_Count INT DEFAULT 0,
+  Admin_Id INT,
+  FOREIGN KEY (Admin_Id) REFERENCES admin_details(Admin_Id)
+);
+
+-- Table: new_q&a_list
+CREATE TABLE new_q_and_a_list (
+  New_Q_A_Id INT AUTO_INCREMENT PRIMARY KEY,
+  New_Questions_List TEXT,
+  New_Answers_List TEXT
+);
