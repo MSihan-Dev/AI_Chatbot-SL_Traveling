@@ -1,0 +1,52 @@
+.DestinationArea > section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.DestinationArea img {
+  max-width: 500px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+.DestinationArea .description {
+  background-color: rgba(164, 192, 219, 0.4); /* add transparency */
+  color: black;
+  text-align: left;
+  width: 40%;
+  border-radius: 10px;
+  padding: 15px;
+  backdrop-filter: blur(5px); /* blur effect */
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
+}
+
+.description > h2 {
+  text-align: center;
+}
+
+.description > img {
+  border: 1px solid black;
+  width: 100%;
+}
+
+.packArea {
+  background-color: rgba(164, 192, 219, 0.4); /* add transparency */
+  color: black;
+  width: 40%;
+  border-radius: 10px;
+  padding: 15px;
+  backdrop-filter: blur(5px); /* blur effect */
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
+}
+
+.DestinationArea button {
+  all: unset;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #1a5f52;
+
+  padding: 5px 14px;
+  margin-top: 20px;
+  &:hover {
+    box-shadow: inset 0 0 3px #1a5f52;
+  }
+}
